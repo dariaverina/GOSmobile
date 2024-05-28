@@ -1,11 +1,12 @@
 package com.example.gos.Model;
+import org.json.JSONException;
+import org.json.JSONObject;
 public class Car {
     private int id;
     private String brand;
     private String model;
     private int year;
     private String number;
-
     private String state; // состояние машины (в салоне, на руках, списана)
     private String personName; // ФИО человека, кому выдана машина (если есть)
 
@@ -39,8 +40,22 @@ public class Car {
         return number;
     }
 
-    public String getStatus() {
-        return state;
+    public String getState() { return state; }
+
+    public String getPersonName() { return personName; }
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("name", brand);
+            json.put("model", model);
+            json.put("year", year);
+            json.put("number", number);
+            json.put("state", state);
+            json.put("personName", personName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
 }

@@ -13,6 +13,10 @@
         android:theme="@style/Theme.GOS"
         tools:targetApi="31">
         <activity
+            android:name=".ReportActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GOS" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

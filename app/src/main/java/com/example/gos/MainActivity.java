@@ -1,4 +1,6 @@
 package com.example.gos;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements AddCarFragment.Ne
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        carAdapter = new CarAdapter(this, carList, getSupportFragmentManager());
+        carAdapter = new CarAdapter(this, carList, getSupportFragmentManager(), dbHelper);
+        carAdapter.setNewCarListener(this);
         recyclerView.setAdapter(carAdapter);
 
         Button addButton = findViewById(R.id.add_button);
@@ -46,11 +49,21 @@ public class MainActivity extends AppCompatActivity implements AddCarFragment.Ne
                 AddCarFragment.show(fragmentManager, "AddCarFragment");
             }
         });
+
+        Button reportButton = findViewById(R.id.report_button);
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Открываем новое активити для отчета
+                Intent intent = new Intent(MainActivity.this, ReportActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadCarsFromDatabase() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query("cars", new String[]{"id", "brand", "model", "year", "number"}, null, null, null, null, null);
+        Cursor cursor = db.query("cars", new String[]{"id", "brand", "model", "year", "number", "state", "person_name"}, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -59,8 +72,10 @@ public class MainActivity extends AppCompatActivity implements AddCarFragment.Ne
                 String model = cursor.getString(cursor.getColumnIndex("model"));
                 int year = cursor.getInt(cursor.getColumnIndex("year"));
                 String number = cursor.getString(cursor.getColumnIndex("number")); // Получаем номер машины
+                String state = cursor.getString(cursor.getColumnIndex("state"));
+                String person_name = cursor.getString(cursor.getColumnIndex("person_name"));
 
-                carList.add(new Car(id, brand, model, year, number, null, null)); // Обновляем конструктор
+                carList.add(new Car(id, brand, model, year, number, state, person_name)); // Обновляем конструктор
             } while (cursor.moveToNext());
         }
 
@@ -69,13 +84,22 @@ public class MainActivity extends AppCompatActivity implements AddCarFragment.Ne
     }
 
     @Override
-    public void onCarAdded(String brand, String model, int year, String number) {
+    public void onCarAdded(String brand, String model, int year, String number, String state, String personName) {
         // Добавление машины в базу данных
-        dbHelper.addCar(brand, model, year, number);
+        dbHelper.addCar(brand, model, year, number, state);
 
         // Обновление списка машин
         carList.clear();
         loadCarsFromDatabase();
         carAdapter.updateCarList(carList);
     }
+    @Override
+    public void onCarUpdated(int carId, ContentValues values) {
+        dbHelper.updateCar(carId, values);
+        // Обновление списка машин
+        carList.clear();
+        loadCarsFromDatabase();
+        carAdapter.updateCarList(carList);
+    }
+
 }

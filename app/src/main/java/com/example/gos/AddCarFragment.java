@@ -1,4 +1,5 @@
 package com.example.gos;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,8 +22,11 @@ public class AddCarFragment extends DialogFragment {
     private NewCarListener listener;
 
     public interface NewCarListener {
-        void onCarAdded(String brand, String model, int year, String Number);
+        void onCarAdded(String brand, String model, int year, String number, String state, String personName);
+        void onCarUpdated(int carId, ContentValues values);
     }
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -68,6 +72,8 @@ public class AddCarFragment extends DialogFragment {
         String model = editTextModel.getText().toString().trim();
         String yearStr = editTextYear.getText().toString().trim();
         String number = editTextNumber.getText().toString().trim();
+        String state = "p";
+        String personName = null;
 
         if (TextUtils.isEmpty(brand) || TextUtils.isEmpty(model) || TextUtils.isEmpty(yearStr) || TextUtils.isEmpty(number)) {
             Toast.makeText(getContext(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show();
@@ -83,7 +89,7 @@ public class AddCarFragment extends DialogFragment {
         }
 
         if (listener != null) {
-            listener.onCarAdded(brand, model, year, number);
+            listener.onCarAdded(brand, model, year, number, state, personName);
         }
 
         dismiss();
