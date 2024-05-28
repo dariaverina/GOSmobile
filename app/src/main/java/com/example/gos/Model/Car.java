@@ -38,4 +38,9 @@ public class Car {
     public String getNumber() {
         return number;
     }
+
+    public String getStatus() {
+        return state;
+    }
+
 }

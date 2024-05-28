@@ -61,4 +61,5 @@ public class RecyclerView extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.car_list_item, container, false);
     }
+
 }

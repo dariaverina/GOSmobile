@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements AddCarFragment.Ne
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        carAdapter = new CarAdapter(carList);
+        carAdapter = new CarAdapter(this, carList, getSupportFragmentManager());
         recyclerView.setAdapter(carAdapter);
 
         Button addButton = findViewById(R.id.add_button);
