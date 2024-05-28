@@ -1,0 +1,65 @@
+<!-- fragment_new_car.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Поле ввода марки автомобиля -->
+    <EditText
+        android:id="@+id/editTextBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Марка автомобиля"
+        android:inputType="text"/>
+
+    <!-- Поле ввода модели автомобиля -->
+    <EditText
+        android:id="@+id/editTextModel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Модель автомобиля"
+        android:inputType="text"/>
+
+    <!-- Поле ввода года выпуска автомобиля -->
+    <EditText
+        android:id="@+id/editTextYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Год выпуска"
+        android:inputType="number"/>
+
+    <!-- Поле ввода номера машины -->
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Номер машины"
+        android:inputType="text"/>
+
+    <!-- Кнопки для добавления или отмены операции -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <!-- Кнопка "Добавить" -->
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Добавить"/>
+
+        <!-- Кнопка "Отмена" -->
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Отмена"/>
+    </LinearLayout>
+
+</LinearLayout>
