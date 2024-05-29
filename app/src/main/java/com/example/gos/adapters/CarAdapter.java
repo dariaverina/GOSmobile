@@ -65,6 +65,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarViewHolder> {
             public void onClick(View v) {
                 int carId = carList.get(position).getId(); // Получаем идентификатор машины
                 IssueCarFragment issueCarFragment = new IssueCarFragment();
+                issueCarFragment.setNewCarListener(listener);
                 Bundle args = new Bundle();
                 args.putInt("id", carId); // Передаем идентификатор машины в аргументы
                 issueCarFragment.setArguments(args);

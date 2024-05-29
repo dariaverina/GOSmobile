@@ -18,6 +18,10 @@ public class IssueCarFragment extends DialogFragment {
         return new IssueCarFragment();
     }
 
+    public void setNewCarListener(AddCarFragment.NewCarListener listener) {
+        this.listener = listener;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,10 +47,10 @@ public class IssueCarFragment extends DialogFragment {
                 values.put("state", "v");
                 values.put("person_name", fullName);
 
-                dbHelper.updateCar(carId, values);
-//                if (listener != null) {
-//                    listener.onCarUpdated(carId, values);
-//                }
+//                dbHelper.updateCar(carId, values);
+                if (listener != null) {
+                    listener.onCarUpdated(carId, values);
+                }
 
                 dismiss();
             }
